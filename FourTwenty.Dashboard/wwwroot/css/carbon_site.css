@@ -1,0 +1,161 @@
+﻿/*.nav {
+	overflow-y: auto;
+}*/
+table > thead > tr > th > .dropdown span.filtarable {
+    cursor: pointer;
+}
+
+table > thead > tr > th > span.filtarable {
+    cursor: pointer;
+}
+
+.alert {
+    word-wrap: break-word;
+}
+
+.navbar-brand > img {
+    max-height: 48px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.custom-file-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-content {
+    position: relative;
+}
+
+    .message-content:hover .message-menu {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+
+.message-menu {
+    right: 0;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s linear;
+}
+
+    .message-menu > button {
+        background: transparent;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+    }
+
+        .message-menu > button:focus {
+            outline: none;
+        }
+
+.git-content {
+    display: none;
+}
+
+.trello-content {
+    display: none;
+}
+
+.version {
+    position: absolute;
+    bottom: 0;
+}
+
+.custom-filterable-table {
+    min-height: 300px;
+}
+
+textarea {
+    resize: none;
+}
+
+.preview-attachment {
+    position: absolute;
+    z-index: 1;
+    right: 3rem;
+    bottom: 10%;
+    display: none;
+}
+
+    .preview-attachment img {
+        width: auto;
+        max-width: 6rem;
+        max-height: 6rem;
+    }
+
+.materials-picker {
+    display: none;
+}
+
+.with-frame {
+    display: none;
+}
+
+.card-fixed-height {
+    object-fit: cover;
+    height: 15vw;
+    min-height: 15vw;
+}
+
+
+.select2-container--default .select2-selection--multiple {
+    background-color: white;
+    border: 1px solid #ced4da !important;
+    border-radius: 0 !important;
+    cursor: text;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #bbdffb !important;
+    outline: 0;
+}
+
+.select2-dropdown {
+    border-radius: 0 !important;
+}
+
+.alert-warning {
+    color: #856915;
+}
+
+.form-submit-bottom-fixed {
+    position: fixed;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    left: 255px;
+    bottom: 0;
+    padding-right: 240px;
+    max-width: 100%;
+    width: 100%;
+    z-index: 1500;
+}
+
+.sidebar-hidden .form-submit-bottom-fixed {
+    left: 15px;
+    padding-right: 0;
+}
+
+.page-header {
+    z-index: 4 !important;
+}
+
+.sidebar {
+    z-index: 3;
+}
+
+
+
+@media (max-width: 991.98px) {
+    .form-submit-bottom-fixed {
+        left: 15px;
+        padding-right: 0;
+    }
+}

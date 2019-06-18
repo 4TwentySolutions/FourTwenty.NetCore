@@ -1,0 +1,12 @@
+﻿@using FourTwenty.Core.Helpers
+@model FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars.LeftNavbarOptions
+
+<ul class="nav">
+    @foreach (var item in Model.LeftNavbarItems)
+    {
+        
+        <partial name="Components/LeftNavbar/_LeftNavbarItem" model="@item"/>
+    }
+</ul>
+<span class="version">Version: @AssemblyHelper.GetCurrentVersion()</span>
+

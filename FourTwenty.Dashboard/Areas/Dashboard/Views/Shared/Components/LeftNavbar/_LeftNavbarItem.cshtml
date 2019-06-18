@@ -1,0 +1,55 @@
+﻿@using FourTwenty.Core.Extensions
+@using FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars
+@model FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars.LeftNavbarItem
+
+
+@if (Model.IsSeparator)
+{
+    <li class="nav-title">@Model.DisplayName</li>
+    @*<h6 class="sidebar-heading justify-content-between align-items-center px-3 mt-4 mb-1 text-muted" style="width: 100%;">
+            <span>@Model.DisplayName</span>
+
+            <a class="align-items-end text-muted" href="#" style="float: right">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </a>
+        </h6>*@
+}
+else
+{
+    if (Model.IsParent)
+    {
+        <li class="nav-item nav-dropdown">
+
+            @if (!string.IsNullOrEmpty(Model.Action))
+            {
+                <a href="#" class="nav-link nav-dropdown-toggle" data-html="true">
+                    <i class="@Model.ImageClass"></i> @Model.DisplayName.Truncate(18) <i class="fa fa-caret-left"></i>
+                </a>
+            }
+            else
+            {
+                <a href="#" class="nav-link nav-dropdown-toggle">
+                    <i class="@Model.ImageClass"></i> @Model.DisplayName.Truncate(18) <i class="fa fa-caret-left"></i>
+                </a>
+            }
+
+
+
+            <ul class="nav-dropdown-items">
+                @foreach (LeftNavbarItem item in Model.Children)
+                {
+                    <partial name="Components/LeftNavbar/_LeftNavbarItem" model="@item" />
+                }
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link @Model.ActiveCss" asp-controller="@Model.Controller" asp-action="@Model.Action" asp-area="@Model.Area" asp-all-route-data="@Model.Parameters">
+                <i class="@Model.ImageClass"></i> @Model.DisplayName.Truncate(18)
+            </a>
+        </li>
+
+    }
+}
