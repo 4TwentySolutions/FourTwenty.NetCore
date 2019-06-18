@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FourTwenty.Core.Interfaces;
 using FourTwenty.Core.Models;
+using FourTwenty.Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace FourTwenty.Core.Repositories

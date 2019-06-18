@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using FourTwenty.Core.Interfaces;
 using FourTwenty.Core.Models;
 
-namespace FourTwenty.Core.Interfaces
+namespace FourTwenty.Core.Repositories
 {
     public interface IRepository<T, in TKey> : IRepository<T> where T : BaseEntity<TKey>
     {

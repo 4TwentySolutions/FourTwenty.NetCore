@@ -3,7 +3,7 @@ using System.Linq.Dynamic.Core;
 using FourTwenty.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace FourTwenty.Core.Repositories
+namespace FourTwenty.Core.Specifications
 {
     public class SpecificationEvaluator<T> where T : class
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FourTwenty.Core.Interfaces;
 using FourTwenty.Core.Models;
 
-namespace FourTwenty.Core.Interfaces
+namespace FourTwenty.Core.Repositories
 {
     public interface IAsyncRepository<T, in TKey> : IAsyncRepository<T> where T : BaseEntity<TKey>
     {
