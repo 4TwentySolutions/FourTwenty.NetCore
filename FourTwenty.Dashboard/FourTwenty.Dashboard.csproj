@@ -3,6 +3,12 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Anton Yaroshenko</Authors>
+        <Company>4Twenty Solutions</Company>
+        <PackageProjectUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Dashboard/</PackageProjectUrl>
+        <RepositoryUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Dashboard/</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="8.1.1" />
