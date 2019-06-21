@@ -10,7 +10,7 @@
         <RepositoryUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Dashboard/</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <Description>Razor class library package that contains all dashboard templates, helpers and javascript</Description>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="8.1.1" />

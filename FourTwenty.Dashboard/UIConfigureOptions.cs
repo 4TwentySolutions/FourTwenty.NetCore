@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -34,8 +35,8 @@ namespace FourTwenty.Dashboard
                 // Looks at the physical files on the disk so it can pick up changes to files under wwwroot while the application is running is Visual Studio.
                 // The last PhysicalFileProvider enalbles TypeScript debugging but only wants to work with IE. I'm currently unsure how to get TS breakpoints to hit with Chrome.
                 options.FileProvider = new CompositeFileProvider(options.FileProvider,
-                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{GetType().Assembly.GetName().Name}\\wwwroot")),
-                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{GetType().Assembly.GetName().Name}")));
+                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}\\wwwroot")),
+                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}")));
             }
             else
             {
@@ -61,7 +62,7 @@ namespace FourTwenty.Dashboard
             if (_environment.IsDevelopment())
             {
                 // Looks for the physical file on the disk so it can pick up any view changes.
-                options.FileProviders.Add(new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{GetType().Assembly.GetName().Name}")));
+                options.FileProviders.Add(new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}")));
             }
         }
     }
