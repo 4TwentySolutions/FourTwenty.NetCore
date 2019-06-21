@@ -65,7 +65,7 @@ namespace FourTwenty.Dashboard.Areas.Dashboard.TagHelpers
             };
             context.Items.Add(typeof(TableChildContext), parentChildContext);
 
-            
+
             var childs = await output.GetChildContentAsync();
             output.Content.SetHtmlContent(childs);
 
@@ -73,7 +73,7 @@ namespace FourTwenty.Dashboard.Areas.Dashboard.TagHelpers
             builder.AppendLine("<script>");
             builder.AppendLine($"function sortBy{UniqueName}(elem ,field, controller, action)");
 
-            var url = UrlHelper.Action(Action, Controller, new {area = Area});
+            var url = UrlHelper.Action(Action, Controller, new { area = Area });
             builder.AppendLine("{$.ajax({type :\"GET\", url:");
             builder.AppendLine($"\"{url}\",");
             builder.AppendLine("dataType : \"html\",");
@@ -127,9 +127,7 @@ namespace FourTwenty.Dashboard.Areas.Dashboard.TagHelpers
             builder.AppendLine("type: \"GET\",");
 
 
-            builder.AppendLine(!string.IsNullOrEmpty(Area)
-                ? "url: \"/" + Area + "/" + Controller + "/" + Action + "\","
-                : "url: \"/" + Controller + "/" + Action + "\",");
+            builder.AppendLine($"url: \"{url}\",");
             builder.AppendLine();
             builder.AppendLine("dataType: \"html\",");
             builder.AppendLine("data: {");
