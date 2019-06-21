@@ -30,20 +30,11 @@ namespace FourTwenty.Dashboard
 
             options.FileProvider = options.FileProvider ?? _environment.WebRootFileProvider;
 
-            if (_environment.IsDevelopment())
-            {
-                // Looks at the physical files on the disk so it can pick up changes to files under wwwroot while the application is running is Visual Studio.
-                // The last PhysicalFileProvider enalbles TypeScript debugging but only wants to work with IE. I'm currently unsure how to get TS breakpoints to hit with Chrome.
-                options.FileProvider = new CompositeFileProvider(options.FileProvider,
-                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}\\wwwroot")),
-                    new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}")));
-            }
-            else
-            {
-                // When deploying use the files that are embedded in the assembly.
-                options.FileProvider = new CompositeFileProvider(options.FileProvider,
-                    new ManifestEmbeddedFileProvider(GetType().Assembly, "wwwroot"));
-            }
+
+            // When deploying use the files that are embedded in the assembly.
+            options.FileProvider = new CompositeFileProvider(options.FileProvider,
+                new ManifestEmbeddedFileProvider(GetType().Assembly, "wwwroot"));
+
 
             _environment.WebRootFileProvider = options.FileProvider; // required to make asp-append-version work as it uses the WebRootFileProvider. https://github.com/aspnet/Mvc/issues/7459
         }
@@ -59,11 +50,7 @@ namespace FourTwenty.Dashboard
 
         public void PostConfigure(string name, RazorViewEngineOptions options)
         {
-            if (_environment.IsDevelopment())
-            {
-                // Looks for the physical file on the disk so it can pick up any view changes.
-                options.FileProviders.Add(new PhysicalFileProvider(Path.Combine(_environment.ContentRootPath, $"..\\{Assembly.GetEntryAssembly()?.GetName().Name ?? Assembly.GetExecutingAssembly().GetName().Name}")));
-            }
+            
         }
     }
 }
