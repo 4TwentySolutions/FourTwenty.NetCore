@@ -16,7 +16,6 @@ RUN dotnet build -c Release -o /app
 WORKDIR /src/FourTwenty.Dashboard
 RUN dotnet build -c Release -o /app
 
-WORKDIR /app
 # Publishing
 RUN dotnet publish -c Release -o /app
 
