@@ -10,14 +10,14 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . .
 WORKDIR /app/FourTwenty.Core
-RUN dotnet build -c Release -o out
+RUN dotnet build -c Release -o /app/out
 
 WORKDIR /app/FourTwenty.Dashboard
-RUN dotnet build -c Release -o out
+RUN dotnet build -c Release -o /app/out
 
 WORKDIR /app
 # Publishing
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o /app/out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
