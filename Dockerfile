@@ -6,7 +6,7 @@ COPY ./FourTwenty.Core/FourTwenty.Core.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY ./FourTwenty.Core/ ./
+COPY ./ ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
