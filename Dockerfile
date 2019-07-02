@@ -9,12 +9,13 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . .
-WORKDIR /FourTwenty.Core
+WORKDIR /app/FourTwenty.Core
 RUN dotnet build -c Release -o out
 
-WORKDIR /FourTwenty.Dashboard
+WORKDIR /app/FourTwenty.Dashboard
 RUN dotnet build -c Release -o out
 
+WORKDIR /app
 # Publishing
 RUN dotnet publish -c Release -o out
 
