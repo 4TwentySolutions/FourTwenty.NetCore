@@ -11,7 +11,7 @@ RUN dotnet restore
 # Copy everything else and build
 COPY . .
 WORKDIR /src/FourTwenty.Core
-RUN dotnet build -c Release -o /app
+RUN dotnet build -c Release
 
 WORKDIR /src/FourTwenty.Dashboard
 RUN dotnet build -c Release -o /app
