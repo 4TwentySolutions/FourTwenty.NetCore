@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-WORKDIR /app
+WORKDIR /FourTwenty.Core
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
