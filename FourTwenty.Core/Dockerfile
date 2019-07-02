@@ -1,12 +1,12 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build-env
-WORKDIR /FourTwenty.Core
+WORKDIR /app
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY /FourTwenty.Core/*.csproj ./
 RUN dotnet restore
 
 # Copy everything else and build
-COPY . ./
+COPY /FourTwenty.Core/ ./
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
