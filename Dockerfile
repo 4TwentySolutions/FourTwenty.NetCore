@@ -22,7 +22,7 @@ RUN dotnet publish -c Release -o /app
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build-env /app .
 ENTRYPOINT ["dotnet", "FourTwenty.Dashboard.dll"]
 
 
