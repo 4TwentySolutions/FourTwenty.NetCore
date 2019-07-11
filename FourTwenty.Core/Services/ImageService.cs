@@ -20,7 +20,7 @@ namespace FourTwenty.Core.Services
         }
         public bool CompressImage(string filePath, bool lossless = true)
         {
-            var fullPath = Path.Combine(_environment.WebRootPath, filePath);
+            var fullPath = GetBasePath(filePath);
             var file = new FileInfo(fullPath);
             var optimizer = new ImageOptimizer();
             bool result;
@@ -34,13 +34,12 @@ namespace FourTwenty.Core.Services
             result = optimizer.Compress(file);
             return result;
         }
-        
+
         public Task<string> CreateThumbnail(int width, int height, string filePath, string thumbnailSuffix = "-thumbnail")
         {
-            filePath = Path.Combine(_environment.WebRootPath, filePath);
+            filePath = GetBasePath(filePath);
             var fileName = Path.GetFileNameWithoutExtension(filePath);
             var finalPath = filePath.Replace(fileName, $"{fileName}{thumbnailSuffix}");
-
 
             using (MagickImage image = new MagickImage(filePath))
             {
@@ -52,6 +51,34 @@ namespace FourTwenty.Core.Services
             }
             return Task.FromResult(Path.GetFileName(finalPath));
 
+        }
+
+
+
+        public Task<string> ConvertToFormat(string filePath, MagickFormat format, string newFormatExtension)
+        {
+            filePath = GetBasePath(filePath);
+            // Read first frame of gif image
+            using (MagickImage image = new MagickImage(filePath))
+            {
+                image.Format = format;
+                var pathExtension = Path.GetExtension(filePath);
+                if (!string.IsNullOrEmpty(pathExtension))
+                {
+                    var finalPath = filePath.Replace(pathExtension, newFormatExtension);
+                    image.Write(finalPath);
+                    return Task.FromResult(finalPath);
+                }
+            }
+
+            return Task.FromResult((string)null);
+        }
+
+        protected virtual string GetBasePath(string fileName)
+        {
+            if (_environment == null)
+                return fileName;
+            return Path.Combine(_environment.WebRootPath, fileName);
         }
 
     }
