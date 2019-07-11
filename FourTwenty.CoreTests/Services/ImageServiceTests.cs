@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using FourTwenty.Core.Interfaces;
@@ -35,38 +36,92 @@ namespace FourTwenty.CoreTests.Services
             _imageService = new ImageService(new HostingEnvironment());
         }
 
+        #region thumnails test
         [TestMethod]
-        public async Task TestWebPFormat()
+        public async Task ThumbnailTest()
         {
-            var data = Convert.FromBase64String(MockImage);
-            var tempFileName = Path.GetTempFileName();
-            File.WriteAllBytes(tempFileName, data);
-            var result = await _imageService.ConvertToFormat(tempFileName, MagickFormat.WebP, ".webp");
-            using (var imageMagick = new MagickImage(result))
+            var randomSize = new Random().Next(5, 399);
+            var filePath = GetTempFileName();
+            var resultFileName = await _imageService.CreateThumbnail(randomSize, randomSize, filePath, "_mythumbnail");
+            var resultFilePath = Path.Combine(Path.GetTempPath(), resultFileName);
+            using (var imageMagick = new MagickImage(resultFilePath))
             {
-                Assert.AreEqual(MagickFormat.WebP, imageMagick.Format);
+                Assert.AreEqual(randomSize, imageMagick.Width);
             }
-            if (File.Exists(result))
-                File.Delete(result);
-            Assert.IsTrue(Path.GetExtension(result).Equals(".webp"));
+            Assert.IsTrue(Path.GetFileNameWithoutExtension(resultFileName).EndsWith("_mythumbnail"));
+            File.Delete(resultFilePath);
+            File.Delete(filePath);
+        } 
+        #endregion
+
+        #region compression test
+
+        [TestMethod]
+        public void CompressLosslessTest()
+        {
+            CompressTestLocal(true);
+        }
+
+        [TestMethod]
+        public void CompressTest()
+        {
+            CompressTestLocal(false);
+        }
+
+        private void CompressTestLocal(bool lossless)
+        {
+            var file = GetTempFileName();
+            var oldFileSize = new FileInfo(file).Length;
+            var result = _imageService.CompressImage(file, lossless);
+            Assert.AreEqual(true, result);
+            var newFileSize = new FileInfo(file).Length;
+            Assert.IsTrue(newFileSize < oldFileSize);
+            File.Delete(file);
+        }
+        #endregion
+
+        #region format tests
+        [TestMethod]
+        public async Task WebPFormatTest()
+        {
+            string extension = ".webp";
+            var result = await _imageService.ConvertToFormat(GetTempFileName(), MagickFormat.WebP, extension);
+            CheckFormatResult(result, MagickFormat.WebP, extension);
         }
 
 
         [TestMethod]
-        public async Task TestJpeg2000Format()
+        public async Task Jpeg2000FormatTest()
+        {
+            string extension = ".jp2";
+            var result = await _imageService.ConvertToFormat(GetTempFileName(), MagickFormat.Jp2, extension);
+            CheckFormatResult(result, MagickFormat.Jp2, extension);
+        }
+
+
+        private void CheckFormatResult(string filePath, MagickFormat expectedFormat, string expectedExtension)
+        {
+            using (var imageMagick = new MagickImage(filePath))
+            {
+                Assert.AreEqual(expectedFormat, imageMagick.Format);
+            }
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+            Assert.AreEqual(Path.GetExtension(filePath), expectedExtension);
+        }
+        #endregion
+
+        #region private methods
+
+
+        private string GetTempFileName()
         {
             var data = Convert.FromBase64String(MockImage);
             var tempFileName = Path.GetTempFileName();
             File.WriteAllBytes(tempFileName, data);
-            var result = await _imageService.ConvertToFormat(tempFileName, MagickFormat.Jp2, ".jp2");
-            using (var imageMagick = new MagickImage(result))
-            {
-                Assert.AreEqual(MagickFormat.Jp2, imageMagick.Format);
-            }
-            if (File.Exists(result))
-                File.Delete(result);
-            Assert.IsTrue(Path.GetExtension(result).Equals(".jp2"));
+            return tempFileName;
         }
 
+        #endregion
     }
 }
