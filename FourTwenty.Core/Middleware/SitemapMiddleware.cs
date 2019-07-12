@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-using FourTwenty.Core.Interfaces;
+using FourTwenty.Core.Interfaces.Seo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;

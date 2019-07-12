@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FourTwenty.Core.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 
 namespace FourTwenty.Core.Middleware

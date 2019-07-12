@@ -2,24 +2,21 @@
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using FourTwenty.Core.Interfaces.Seo;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FourTwenty.Core.Middleware
 {
     public class RobotsMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly string _baseUrl;
-        private readonly string[] _lines;
 
 
-
-        public RobotsMiddleware(RequestDelegate next, string[] lines, string baseUrl = null)
+        public RobotsMiddleware(RequestDelegate next)
         {
             _next = next;
-            _baseUrl = baseUrl;
-            _lines = lines;
         }
 
 
@@ -30,21 +27,16 @@ namespace FourTwenty.Core.Middleware
                 var stream = context.Response.Body;
                 context.Response.StatusCode = 200;
                 context.Response.ContentType = "text/plain";
-
+                var provider = context.RequestServices.GetService<IRobotsProvider>();
                 StringBuilder stringBuilder = new StringBuilder();
-                if(_lines!=null)
-                    foreach (string line in _lines)
+                if (provider != null)
+                {
+                    var robotsLines = await provider.GetRobotsLines();
+                    foreach (var line in robotsLines)
                     {
                         stringBuilder.AppendLine(line);
                     }
-
-                stringBuilder.Append("sitemap: ");
-
-                stringBuilder.AppendLine(!string.IsNullOrEmpty(_baseUrl)
-                    ? $"{_baseUrl}/sitemap.xml"
-                    : $"{context.Request.Scheme}://{context.Request.Host}{context.Request.PathBase}/sitemap.xml");
-
-
+                }
                 using (var memoryStream = new MemoryStream())
                 {
                     var bytes = Encoding.UTF8.GetBytes(stringBuilder.ToString());
@@ -62,12 +54,6 @@ namespace FourTwenty.Core.Middleware
 
     public static class RobotsMiddlewareExtensions
     {
-        public static IApplicationBuilder UseRobots(
-            this IApplicationBuilder builder, string baseUrl)
-        {
-            return builder.UseMiddleware<RobotsMiddleware>(baseUrl);
-        }
-
         public static IApplicationBuilder UseRobots(this IApplicationBuilder builder)
         {
             return builder.UseMiddleware<RobotsMiddleware>();
