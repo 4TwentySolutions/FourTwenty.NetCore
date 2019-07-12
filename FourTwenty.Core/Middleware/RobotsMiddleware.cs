@@ -32,10 +32,9 @@ namespace FourTwenty.Core.Middleware
                 if (provider != null)
                 {
                     var robotsLines = await provider.GetRobotsLines();
-                    foreach (var line in robotsLines)
-                    {
-                        stringBuilder.AppendLine(line);
-                    }
+                    if (robotsLines != null)
+                        foreach (var line in robotsLines)
+                            stringBuilder.AppendLine(line);
                 }
                 using (var memoryStream = new MemoryStream())
                 {
