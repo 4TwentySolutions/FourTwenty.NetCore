@@ -7,6 +7,6 @@ namespace FourTwenty.Core.Interfaces.Seo
 {
     public interface IRobotsProvider
     {
-        Task<string[]> GetRobotsLines();
+        Task<string> GetRobotsContent();
     }
 }

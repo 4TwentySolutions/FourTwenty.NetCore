@@ -28,17 +28,12 @@ namespace FourTwenty.Core.Middleware
                 context.Response.StatusCode = 200;
                 context.Response.ContentType = "text/plain";
                 var provider = context.RequestServices.GetService<IRobotsProvider>();
-                StringBuilder stringBuilder = new StringBuilder();
+                string content = string.Empty;
                 if (provider != null)
-                {
-                    var robotsLines = await provider.GetRobotsLines();
-                    if (robotsLines != null)
-                        foreach (var line in robotsLines)
-                            stringBuilder.AppendLine(line);
-                }
+                    content = await provider.GetRobotsContent();
                 using (var memoryStream = new MemoryStream())
                 {
-                    var bytes = Encoding.UTF8.GetBytes(stringBuilder.ToString());
+                    var bytes = Encoding.UTF8.GetBytes(content);
                     memoryStream.Write(bytes, 0, bytes.Length);
                     memoryStream.Seek(0, SeekOrigin.Begin);
                     await memoryStream.CopyToAsync(stream, bytes.Length);
