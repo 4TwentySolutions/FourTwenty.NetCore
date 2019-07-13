@@ -11,6 +11,8 @@
         <RepositoryType>Git</RepositoryType>
         <Description>Razor class library package that contains all dashboard templates, helpers and javascript</Description>
         <Version>1.0.7</Version>
+        <AssemblyVersion>1.0.8.0</AssemblyVersion>
+        <FileVersion>1.0.8.0</FileVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="AutoMapper" Version="8.1.1" />
