@@ -9,19 +9,18 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <partial name="_LayoutStyles"/>
-
-
+    <partial name="_LayoutStyles" />
+    @RenderSection("Styles", required: false)
     <title>@ViewBag.Title</title>
 </head>
 <body class="sidebar-fixed header-fixed">
     <div class="page-wrapper">
         <div class="page-header">
-            <partial name="_LayoutTopNavbar"/>
+            <partial name="_LayoutTopNavbar" />
         </div>
         <div class="main-container">
             <div class="sidebar">
-               <partial name="_LayoutSidebar"/>
+                <partial name="_LayoutSidebar" />
             </div>
             <div class="content">
                 @RenderBody()
@@ -30,7 +29,7 @@
     </div>
     <partial name="_AjaxUrls" />
     <partial name="_LayoutJavaScripts" />
- 
+
     <script type="text/javascript">
         $(function () {
             $('[data-toggle="popover"]').popover();
