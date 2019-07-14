@@ -8,7 +8,7 @@ namespace FourTwenty.Core.Seo
     public class SitemapBuilder
     {
         private readonly XNamespace _ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
-        private readonly XNamespace _xhtml = "http://www.w3.org/1999/xhtml/";
+        private readonly XNamespace _xhtml = "http://www.w3.org/1999/xhtml";
 
         public List<SitemapUrl> Urls { get; }
 
@@ -57,7 +57,7 @@ namespace FourTwenty.Core.Seo
 
             if (url.Priority.HasValue)
             {
-                itemElement.Add(new XElement(_ns + "priority", url.Priority.Value.ToString("N1")));
+                itemElement.Add(new XElement(_ns + "priority", url.Priority.Value.ToString("N1").Replace(",", ".")));
             }
 
             if (url.Links != null && url.Links.Any())
