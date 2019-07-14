@@ -10,9 +10,9 @@
         <RepositoryUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Core/</RepositoryUrl>
         <PackageProjectUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Core/</PackageProjectUrl>
         <Description>Helper package that contains all common classes, extensions and helpers</Description>
-        <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.0</AssemblyVersion>
-        <FileVersion>1.0.9.0</FileVersion>
+        <Version>1.0.10</Version>
+        <AssemblyVersion>1.0.10.0</AssemblyVersion>
+        <FileVersion>1.0.10.0</FileVersion>
     </PropertyGroup>
 
     <ItemGroup>
