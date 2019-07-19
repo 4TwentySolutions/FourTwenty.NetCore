@@ -6,6 +6,7 @@ WORKDIR /src
 COPY FourTwenty.sln ./
 COPY FourTwenty.Core/*.csproj ./FourTwenty.Core/
 COPY FourTwenty.Dashboard/*.csproj ./FourTwenty.Dashboard/
+COPY FourTwenty.CoreTests/*.csproj ./FourTwenty.CoreTests/
 RUN dotnet restore
 
 # Copy everything else and build
