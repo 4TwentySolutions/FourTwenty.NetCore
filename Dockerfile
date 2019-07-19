@@ -20,6 +20,10 @@ RUN dotnet build -c Release -o /app
 # Publishing
 RUN dotnet publish -c Release -o /app
 
+# Run tests
+WORKDIR /src/FourTwenty.CoreTests
+RUN dotnet test
+
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
