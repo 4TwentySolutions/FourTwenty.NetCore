@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Mail;
+using System.IO;
 using System.Threading.Tasks;
 using FourTwenty.Core.Interfaces;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using MimeKit;
 
 namespace FourTwenty.Core.Services
 {
-    public class EmailSender : IEmailSender, IEmailService
+    public class EmailSender : IEmailService
     {
         // Our private configuration variables
         private readonly string _host;
@@ -27,6 +26,7 @@ namespace FourTwenty.Core.Services
             this._password = password;
         }
 
+
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             return SendEmailAsync(email, subject, htmlMessage, null);
@@ -34,24 +34,46 @@ namespace FourTwenty.Core.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage, List<IFormFile> attachments)
         {
-            using (var message = new MailMessage(_userName, email, subject, htmlMessage))
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("MACS Application", _userName));
+            message.To.Add(new MailboxAddress(email, email));
+            message.Subject = subject;
+
+            var body = new TextPart("plain")
             {
-                message.IsBodyHtml = true;
-                if (attachments != null && attachments.Any())
+                Text = htmlMessage,
+            };
+            
+            var multipart = new Multipart("mixed");
+            foreach (var file in attachments)
+            {
+                // create an image attachment for the file located at path
+                var attachment = new MimePart("text/plain")
                 {
-                    foreach (IFormFile attachment in attachments)
-                    {
-                        message.Attachments.Add(new Attachment(attachment.OpenReadStream(), attachment.FileName, attachment.ContentType));
-                    }
-                }
-                using (var smtpClient = new SmtpClient(_host, _port)
-                {
-                    EnableSsl = _enableSsl,
-                    Credentials = new NetworkCredential(_userName, _password),
-                })
-                {
-                    await smtpClient.SendMailAsync(message);
-                }
+                    Content = new MimeContent(file.OpenReadStream()),
+                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                    ContentTransferEncoding = ContentEncoding.Base64,
+                    FileName = Path.GetFileName(file.FileName)
+                };
+                // now create the multipart/mixed container to hold the message text and the
+                // image attachment
+                multipart.Add(body);
+                multipart.Add(attachment);
+            }
+           
+            message.Body = multipart;
+            using (var client = new SmtpClient())
+            {
+                // For demo-purposes, accept all SSL certificates (in case the server supports STARTTLS)
+                //client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+                await client.ConnectAsync(_host, _port, _enableSsl);
+
+                // Note: only needed if the SMTP server requires authentication
+                client.Authenticate(_userName, _password);
+
+                await client.SendAsync(message);
+                await client.DisconnectAsync(true);
             }
         }
     }
