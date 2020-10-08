@@ -10,11 +10,11 @@ namespace FourTwenty.Core.Services
     {
         #region fields
 
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
         #endregion
 
-        public ImageService(IHostingEnvironment environment)
+        public ImageService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

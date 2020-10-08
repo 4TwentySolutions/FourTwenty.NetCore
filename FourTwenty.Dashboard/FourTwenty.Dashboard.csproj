@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>Anton Yaroshenko</Authors>
@@ -10,22 +11,21 @@
         <RepositoryUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Dashboard/</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <Description>Razor class library package that contains all dashboard templates, helpers and javascript</Description>
-        <Version>1.0.7</Version>
-        <AssemblyVersion>1.0.8.0</AssemblyVersion>
-        <FileVersion>1.0.8.0</FileVersion>
+        <Version>1.1.0</Version>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <FileVersion>1.1.0.0</FileVersion>
         <UserSecretsId>f7f1a626-f94d-4de4-a7e6-e3b01d9d5785</UserSecretsId>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="AutoMapper" Version="9.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-        <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.2" />
-        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.21" />
-        <PackageReference Include="X.PagedList" Version="7.9.0" />
-        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.2" />
-        <PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.2" PrivateAssets="All" />
-        <PackageReference Include="X.PagedList.Mvc.Core" Version="7.9.1" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <PackageReference Include="AutoMapper" Version="10.0.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.Extensions" Version="3.1.8" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="3.1.8" />
+        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.2" />
+        <PackageReference Include="X.PagedList" Version="8.0.7" />
+        <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="3.1.8" />
+        <PackageReference Include="Microsoft.NET.Sdk.Razor" Version="3.1.8" PrivateAssets="All" />
+        <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="wwwroot\**\*" />

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using FourTwenty.Core.Interfaces;
 using FourTwenty.Core.Services;
@@ -16,7 +13,7 @@ namespace FourTwenty.CoreTests.Services
     [TestClass]
     public class ImageServiceTests
     {
-        private class HostingEnvironment : IHostingEnvironment
+        private class HostingEnvironment : IWebHostEnvironment
         {
             public string EnvironmentName { get; set; }
             public string ApplicationName { get; set; }

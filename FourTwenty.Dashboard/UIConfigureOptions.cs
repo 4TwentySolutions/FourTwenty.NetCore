@@ -10,8 +10,8 @@ namespace FourTwenty.Dashboard
 {
     public class UiConfigureOptions : IPostConfigureOptions<StaticFileOptions>
     {
-        private readonly IHostingEnvironment _environment;
-        public UiConfigureOptions(IHostingEnvironment environment)
+        private readonly IWebHostEnvironment _environment;
+        public UiConfigureOptions(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
@@ -39,9 +39,9 @@ namespace FourTwenty.Dashboard
     }
     public class ViewConfigureOptions : IPostConfigureOptions<RazorViewEngineOptions>
     {
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public ViewConfigureOptions(IHostingEnvironment environment)
+        public ViewConfigureOptions(IWebHostEnvironment environment)
         {
             _environment = environment;
         }

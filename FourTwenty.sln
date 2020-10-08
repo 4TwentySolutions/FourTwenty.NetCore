@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourTwenty.Core", "FourTwen
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourTwenty.Dashboard", "FourTwenty.Dashboard\FourTwenty.Dashboard.csproj", "{3B212D3C-62FA-4A5A-AE97-8D2579BDA61E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourTwenty.CoreTests", "FourTwenty.CoreTests\FourTwenty.CoreTests.csproj", "{F996F0C0-47E9-4A26-8E2D-762762BD4115}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FourTwenty.CoreTests", "FourTwenty.CoreTests\FourTwenty.CoreTests.csproj", "{F996F0C0-47E9-4A26-8E2D-762762BD4115}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
