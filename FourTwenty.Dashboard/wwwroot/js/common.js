@@ -30,9 +30,9 @@
         var settings = $.extend({
             showApiAlert: true,
             alertTitle: "Delete confirmation",
-            buttonLoadingElement: null
-        },
-            options);
+            buttonLoadingElement: null,
+            requestType: "DELETE"
+        }, options);
 
 
         return new Promise((resolve, reject) => {
@@ -41,7 +41,11 @@
             var deleteCallback = async function (result) {
                 try {
                     if (result) {
-                        var answer = await $.post(settings.url, settings.data);
+                        var answer = await $.ajax({
+                            url: settings.url,
+                            data: settings.data,
+                            type: settings.requestType
+                        });
                         resolve(answer);
                     } else {
                         reject(new ConfirmPopupError());

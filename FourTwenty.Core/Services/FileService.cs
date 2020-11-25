@@ -11,13 +11,26 @@ namespace FourTwenty.Core.Services
     {
         #region fields
 
+#if NETCOREAPP3_1
         private readonly IWebHostEnvironment _environment;
-
+#elif NETSTANDARD2_1
+        private readonly IHostingEnvironment _environment;
+#endif
         #endregion
+
+#if NETCOREAPP3_1
         public FileService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
+#elif NETSTANDARD2_1
+        public FileService(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+#endif
+
+
 
         /// <summary>
         /// 
@@ -40,7 +53,7 @@ namespace FourTwenty.Core.Services
             return Path.GetFileName(filePath);
         }
 
-        
+
         public Task Delete(string path)
         {
             if (!string.IsNullOrEmpty(path))

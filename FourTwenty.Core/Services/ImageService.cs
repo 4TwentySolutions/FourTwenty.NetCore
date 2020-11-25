@@ -8,16 +8,28 @@ namespace FourTwenty.Core.Services
 {
     public class ImageService : IImageService
     {
+
         #region fields
 
+#if NETCOREAPP3_1
         private readonly IWebHostEnvironment _environment;
-
+#elif NETSTANDARD2_1
+        private readonly IHostingEnvironment _environment;
+#endif
         #endregion
 
+#if NETCOREAPP3_1
         public ImageService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
+#elif NETSTANDARD2_1
+        public ImageService(IHostingEnvironment environment)
+        {
+            _environment = environment;
+        }
+#endif
+
         public bool CompressImage(string filePath, bool lossless = true)
         {
             var fullPath = GetBasePath(filePath);
