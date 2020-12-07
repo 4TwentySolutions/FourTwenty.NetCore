@@ -20,6 +20,7 @@
         <PackageReference Include="MailKit" Version="2.9.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.10" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
@@ -27,9 +28,10 @@
         <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.2" />
     </ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0"/>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0"/>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.5" />
 		<PackageReference Include="MailKit" Version="2.9.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
