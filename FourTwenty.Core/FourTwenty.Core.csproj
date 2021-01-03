@@ -1,44 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;netstandard2.1</TargetFrameworks>
-        <Authors>Anton Yaroshenko</Authors>
-        <Company>4Twenty Solutions</Company>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <RepositoryType>Git</RepositoryType>
-        <RepositoryUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Core/</RepositoryUrl>
-        <PackageProjectUrl>https://bitbucket.org/p420_team/fourtwenty.netcore/src/master/FourTwenty.Core/</PackageProjectUrl>
-        <Description>Helper package that contains all common classes, extensions and helpers</Description>
-        <Version>1.1.0</Version>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
-        <FileVersion>1.1.0.0</FileVersion>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netcoreapp3.1;netstandard2.1;net5.0</TargetFrameworks>
+		<Authors>Anton Yaroshenko</Authors>
+		<Company>4Twenty Solutions</Company>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RepositoryType>Git</RepositoryType>
+		<RepositoryUrl>https://github.com/4TwentySolutions/FourTwenty.NetCore</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/4TwentySolutions/FourTwenty.NetCore</PackageProjectUrl>
+		<Description>Helper package that contains all common classes, extensions and helpers</Description>
+		<Version>1.1.0</Version>
+		<AssemblyVersion>1.1.0.0</AssemblyVersion>
+		<FileVersion>1.1.0.0</FileVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="MailKit" Version="2.10.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+		<PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.3" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.7" />
+		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.1" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.1" />
+	</ItemGroup>
 
-    <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="MailKit" Version="2.9.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
-        <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.10" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-        <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-        <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
-        <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.2" />
-    </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.10" />
+	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.5" />
-		<PackageReference Include="MailKit" Version="2.9.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.10" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.10" />
-		<PackageReference Include="Microsoft.Extensions.Http" Version="3.1.10" />
-		<PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-		<PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-		<PackageReference Include="Magick.NET-Q16-AnyCPU" Version="7.22.0" />
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.2" />
 	</ItemGroup>
 </Project>

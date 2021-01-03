@@ -22,7 +22,6 @@ namespace FourTwenty.Dashboard.Areas.Dashboard.TagHelpers
     public class TableHeaderTagHelper : TagHelper
     {
         public static Dictionary<string, string> UniqueNames { get; set; } = new Dictionary<string, string>();
-        //public static string UniqueName { get; set; }
         private string UniqueName { get; set; }
         public string Controller { get; set; }
         public string Action { get; set; }

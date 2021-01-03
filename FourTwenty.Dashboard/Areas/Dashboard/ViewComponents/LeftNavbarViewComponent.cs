@@ -25,8 +25,8 @@ namespace FourTwenty.Dashboard.Areas.Dashboard.ViewComponents
 
             var options = new LeftNavbarOptions
             {
-                LeftNavbarItems = (await _navbarHelper.ItemsPerUser(controller, action, User.Identity.Name ?? string.Empty)).Cast<LeftNavbarItem>(),
-                ProfileDropdownItems = (await _navbarHelper.ProfileItemsPerUser(User.Identity.Name ?? string.Empty)).Cast<LeftNavbarItem>()
+                LeftNavbarItems = (await _navbarHelper.ItemsPerUser(controller, action, User?.Identity?.Name ?? string.Empty)).Cast<LeftNavbarItem>(),
+                ProfileDropdownItems = (await _navbarHelper.ProfileItemsPerUser(User?.Identity?.Name ?? string.Empty)).Cast<LeftNavbarItem>()
             };
             return View(view, options);
         }

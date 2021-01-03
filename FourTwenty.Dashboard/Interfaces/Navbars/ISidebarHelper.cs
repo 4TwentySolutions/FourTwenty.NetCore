@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars;
 
 namespace FourTwenty.Dashboard.Interfaces.Navbars
 {

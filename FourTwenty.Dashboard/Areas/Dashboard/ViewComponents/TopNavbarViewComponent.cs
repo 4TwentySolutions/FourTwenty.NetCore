@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using FourTwenty.Dashboard.Areas.Dashboard.Helpers;
 using FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars;
 using FourTwenty.Dashboard.Interfaces.Navbars;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 
 namespace FourTwenty.Dashboard.Areas.Dashboard.ViewComponents
 {
