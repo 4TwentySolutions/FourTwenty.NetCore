@@ -11,14 +11,14 @@ namespace FourTwenty.Core.Services
 
         #region fields
 
-#if NETCOREAPP3_1 || NET5_0
+#if NETCOREAPP3_1 || NET5_0_OR_GREATER
         private readonly IWebHostEnvironment _environment;
 #elif NETSTANDARD2_1
         private readonly IHostingEnvironment _environment;
 #endif
         #endregion
 
-#if NETCOREAPP3_1 || NET5_0
+#if NETCOREAPP3_1 || NET5_0_OR_GREATER
         public ImageService(IWebHostEnvironment environment)
         {
             _environment = environment;
