@@ -1,20 +1,20 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace FourTwenty.Core.ReCaptcha
 {
     public class ReCaptchaResponse
     {
-        [JsonProperty("success")]
+        [JsonPropertyName("success")]
         public bool Success { get; set; }
-        [JsonProperty("challenge_ts")]
+        [JsonPropertyName("challenge_ts")]
         public string ChallengeTs { get; set; }
-        [JsonProperty("hostname")]
+        [JsonPropertyName("hostname")]
         public string Hostname { get; set; }
-        [JsonProperty("error-codes")]
+        [JsonPropertyName("error-codes")]
         public string[] ErrorCodes { get; set; }
-        [JsonProperty("score")]
+        [JsonPropertyName("score")]
         public float Score { get; set; }
-        [JsonProperty("action")]
+        [JsonPropertyName("action")]
         public string Action { get; set; }
     }
 }

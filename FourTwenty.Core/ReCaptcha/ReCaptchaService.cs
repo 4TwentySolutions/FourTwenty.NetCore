@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace FourTwenty.Core.ReCaptcha
 {
@@ -32,7 +32,7 @@ namespace FourTwenty.Core.ReCaptcha
                 return new ReCaptchaResponse() {Success = false, ErrorCodes = new[] {response.ReasonPhrase}};
 
             var content = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ReCaptchaResponse>(content);
+            return JsonSerializer.Deserialize<ReCaptchaResponse>(content);
 
         }
 

@@ -1,5 +1,4 @@
-﻿
-@using FourTwenty.Dashboard.Areas.Dashboard.Helpers
+﻿@using FourTwenty.Dashboard.Areas.Dashboard.Helpers
 @using FourTwenty.Dashboard.Areas.Dashboard.Models.Navbars
 <!DOCTYPE html>
 
@@ -10,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <partial name="_LayoutStyles" />
-    @RenderSection("Styles", required: false)
+    @await RenderSectionAsync("Styles", required: false)
     <title>@ViewBag.Title</title>
 </head>
 <body class="sidebar-fixed header-fixed">
@@ -35,6 +34,6 @@
             $('[data-toggle="popover"]').popover();
         })
     </script>
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
