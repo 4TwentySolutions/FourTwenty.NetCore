@@ -7,7 +7,7 @@
 
     <ItemGroup>
 	    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-        <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.4.0" />
+        <PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.5.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
         <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
         <PackageReference Include="MSTest.TestFramework" Version="2.2.8" />

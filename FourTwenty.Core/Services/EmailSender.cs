@@ -49,15 +49,18 @@ namespace FourTwenty.Core.Services
 
             var multipart = new Multipart("mixed") { body };
 
-            foreach (var attachment in attachments.Select(file => new MimePart(file.ContentType)
+            if (attachments != null)
             {
-                Content = new MimeContent(file.OpenReadStream()),
-                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = Path.GetFileName(file.FileName)
-            }))
-            {
-                multipart.Add(attachment);
+                foreach (var attachment in attachments.Select(file => new MimePart(file.ContentType)
+                         {
+                             Content = new MimeContent(file.OpenReadStream()),
+                             ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                             ContentTransferEncoding = ContentEncoding.Base64,
+                             FileName = Path.GetFileName(file.FileName)
+                         }))
+                {
+                    multipart.Add(attachment);
+                }
             }
 
             message.Body = multipart;

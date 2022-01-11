@@ -15,37 +15,37 @@
 		<FileVersion>1.1.0.0</FileVersion>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="MailKit" Version="2.15.0" />
-		<PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.4.0" />
-		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.13" />
+		<PackageReference Include="MailKit" Version="3.0.0" />
+		<PackageReference Include="Magick.NET-Q16-AnyCPU" Version="8.5.0" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.15" />
 		<PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+		<PackageReference Include="System.Text.Json" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.1" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.21" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.22" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.5" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
-		<PackageReference Include="System.Text.Json" Version="6.0.0"/>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.13" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.13" />
 	</ItemGroup>
 </Project>
