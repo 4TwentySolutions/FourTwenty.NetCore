@@ -24,8 +24,15 @@ namespace FourTwenty.CoreTests.Services
                 UseCertificateValidation = false,
                 UserName = "Test"
             }));
-            await Assert.ThrowsExceptionAsync<SocketException>(() =>
-                sender.SendEmailAsync("test@mail.com", "Sub", "Message</br>Test"));
+
+            try
+            {
+                await sender.SendEmailAsync("test@mail.com", "Sub", "Message</br>Test");
+            }
+            catch (SocketException e)
+            {
+                Assert.IsNotNull(e);
+            }
         }
     }
 }
