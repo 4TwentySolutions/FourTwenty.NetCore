@@ -190,7 +190,7 @@
             title: title,
             centerVertical: true,
             message:
-                `<div class="text-center text-danger"><i class="fas fa-7x fa-times-circle"/><br/><p class="text-dark mt-3">${
+                `<div class="text-center text-danger"><i class="fas fa-7x fa-times-circle"></i><br/><p class="text-dark mt-3">${
                 errorText}</p></div>`
         });
     };
