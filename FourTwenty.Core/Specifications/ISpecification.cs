@@ -15,6 +15,7 @@ namespace FourTwenty.Core.Specifications
         bool IsSatisfiedBy(T entity);
         ISpecification<T> And(ISpecification<T> specification);
         ISpecification<T> Or(ISpecification<T> specification);
+        ISpecification<T> Not(ISpecification<T> specification);
         int PageNumber { get; }
         int PageSize { get; }
         bool IsPagingEnabled { get; }

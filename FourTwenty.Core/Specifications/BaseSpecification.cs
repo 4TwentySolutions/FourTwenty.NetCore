@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore.Query;
 
 namespace FourTwenty.Core.Specifications
 {
@@ -53,6 +52,18 @@ namespace FourTwenty.Core.Specifications
                 return All;
             return new OrSpecification<T>(this, specification);
         }
+
+        public ISpecification<T> Not(ISpecification<T> specification)
+        {
+            if (this == All)
+                return specification;
+
+            if (specification == All)
+                return this;
+
+            return new NotSpecification<T>(specification);
+        }
+
 
         public int PageNumber { get; private set; }
         public int PageSize { get; private set; }
