@@ -9,7 +9,7 @@ namespace FourTwenty.Core.Extensions
 {
     public static class ControllerExtensions
     {
-        public static async Task<string> RenderViewAsync<TModel>(this Controller controller, string viewName, TModel model, bool partial = false, HtmlHelperOptions options = null)
+        public static async Task<string> RenderViewAsync<TModel>(this Controller controller, string viewName, TModel model, bool partial = false, HtmlHelperOptions? options = null)
         {
             if (string.IsNullOrEmpty(viewName))
             {
@@ -18,9 +18,9 @@ namespace FourTwenty.Core.Extensions
 
             controller.ViewData.Model = model;
 
-            using (var writer = new StringWriter())
+            await using (var writer = new StringWriter())
             {
-                IViewEngine viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+                IViewEngine? viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
                 if (viewEngine != null)
                 {
                     ViewEngineResult viewResult = viewEngine.FindView(controller.ControllerContext, viewName, !partial);
@@ -45,6 +45,6 @@ namespace FourTwenty.Core.Extensions
             }
         }
 
-        public static async Task<string> RenderPartialViewAsync<TModel>(this Controller controller, string viewName, TModel model, HtmlHelperOptions options = null) => await RenderViewAsync(controller, viewName, model, true, options);
+        public static async Task<string> RenderPartialViewAsync<TModel>(this Controller controller, string viewName, TModel model, HtmlHelperOptions? options = null) => await RenderViewAsync(controller, viewName, model, true, options);
     }
 }

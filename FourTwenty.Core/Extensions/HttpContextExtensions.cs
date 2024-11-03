@@ -11,7 +11,7 @@ namespace FourTwenty.Core.Extensions
             var port = host == "localhost"
                 ? localhostSslPort
                 : context.Request.Host.Port ?? 0;
-            var portString = port == 80 || port == 443 || port == 0
+            var portString = port is 80 or 443 or 0
                 ? string.Empty
                 : $":{port}";
             var pathBase = context.Request.PathBase.HasValue

@@ -22,7 +22,7 @@ namespace FourTwenty.Core.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (context.Request.Path.Value.Equals("/robots.txt", StringComparison.OrdinalIgnoreCase))
+            if (context.Request.Path.Value?.Equals("/robots.txt", StringComparison.OrdinalIgnoreCase) == true)
             {
                 var stream = context.Response.Body;
                 context.Response.StatusCode = 200;

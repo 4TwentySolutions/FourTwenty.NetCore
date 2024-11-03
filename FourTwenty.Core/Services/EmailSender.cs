@@ -35,7 +35,7 @@ namespace FourTwenty.Core.Services
             return SendEmailAsync(email, subject, htmlMessage, null);
         }
 
-        public virtual async Task SendEmailAsync(string email, string subject, string htmlMessage, List<IFormFile> attachments)
+        public virtual async Task SendEmailAsync(string email, string subject, string htmlMessage, List<IFormFile>? attachments)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress(_emailSenderOptions.FromName, _emailSenderOptions.UserName));
@@ -52,12 +52,12 @@ namespace FourTwenty.Core.Services
             if (attachments != null)
             {
                 foreach (var attachment in attachments.Select(file => new MimePart(file.ContentType)
-                         {
-                             Content = new MimeContent(file.OpenReadStream()),
-                             ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                             ContentTransferEncoding = ContentEncoding.Base64,
-                             FileName = Path.GetFileName(file.FileName)
-                         }))
+                {
+                    Content = new MimeContent(file.OpenReadStream()),
+                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                    ContentTransferEncoding = ContentEncoding.Base64,
+                    FileName = Path.GetFileName(file.FileName)
+                }))
                 {
                     multipart.Add(attachment);
                 }
@@ -76,7 +76,7 @@ namespace FourTwenty.Core.Services
             await client.DisconnectAsync(true);
         }
 
-        protected virtual bool ValidateCertificate(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        protected virtual bool ValidateCertificate(object sender, X509Certificate? certificate, X509Chain? chain, SslPolicyErrors sslPolicyErrors)
         {
             const SslPolicyErrors ignoredErrors =
                 SslPolicyErrors.RemoteCertificateChainErrors |  // self-signed
@@ -93,7 +93,7 @@ namespace FourTwenty.Core.Services
             if (chain?.ChainStatus == null) return true;
             foreach (X509ChainStatus status in chain.ChainStatus)
             {
-                if (certificate.Subject == certificate.Issuer &&
+                if (certificate != null && certificate.Subject == certificate.Issuer &&
                     (status.Status == X509ChainStatusFlags.UntrustedRoot))
                 {
                     // Self-signed certificates with an untrusted root are valid. 

@@ -20,12 +20,15 @@ namespace FourTwenty.Core.Middleware
 
         public async Task Invoke(HttpContext context)
         {
-            if (context.Request.Path.Value.Equals("/sitemap.xml", StringComparison.OrdinalIgnoreCase))
+            if (context.Request.Path.Value?.Equals("/sitemap.xml", StringComparison.OrdinalIgnoreCase) == true)
             {
                 var stream = context.Response.Body;
                 context.Response.StatusCode = 200;
                 context.Response.ContentType = "application/xml";
                 var provider = context.RequestServices.GetService<ISitemapProvider>();
+                if (provider is null)
+                    throw new NullReferenceException($"Sitemap provider missing");
+
                 var sitemapContent = await provider.GetSitemapAsync();
                 using (var memoryStream = new MemoryStream())
                 {

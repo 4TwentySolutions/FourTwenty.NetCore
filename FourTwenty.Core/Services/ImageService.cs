@@ -8,27 +8,13 @@ namespace FourTwenty.Core.Services
 {
     public class ImageService : IImageService
     {
+        private readonly IWebHostEnvironment? _environment;
 
-        #region fields
-
-#if NETCOREAPP3_1 || NET5_0_OR_GREATER
-        private readonly IWebHostEnvironment _environment;
-#elif NETSTANDARD2_1
-        private readonly IHostingEnvironment _environment;
-#endif
-        #endregion
-
-#if NETCOREAPP3_1 || NET5_0_OR_GREATER
         public ImageService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
-#elif NETSTANDARD2_1
-        public ImageService(IHostingEnvironment environment)
-        {
-            _environment = environment;
-        }
-#endif
+
 
         public bool CompressImage(string filePath, bool lossless = true)
         {
@@ -47,7 +33,7 @@ namespace FourTwenty.Core.Services
             return result;
         }
 
-        public Task<string> CreateThumbnail(int width, int height, string filePath, string thumbnailSuffix = "-thumbnail")
+        public Task<string> CreateThumbnail(uint width, uint height, string filePath, string thumbnailSuffix = "-thumbnail")
         {
             filePath = GetBasePath(filePath);
             var fileName = Path.GetFileNameWithoutExtension(filePath);
@@ -67,7 +53,7 @@ namespace FourTwenty.Core.Services
 
 
 
-        public Task<string> ConvertToFormat(string filePath, MagickFormat format, string newFormatExtension)
+        public Task<string?> ConvertToFormat(string filePath, MagickFormat format, string newFormatExtension)
         {
             filePath = GetBasePath(filePath);
             // Read first frame of gif image
@@ -79,11 +65,11 @@ namespace FourTwenty.Core.Services
                 {
                     var finalPath = filePath.Replace(pathExtension, newFormatExtension);
                     image.Write(finalPath);
-                    return Task.FromResult(finalPath);
+                    return Task.FromResult<string?>(finalPath);
                 }
             }
 
-            return Task.FromResult((string)null);
+            return Task.FromResult<string?>(null);
         }
 
         protected virtual string GetBasePath(string fileName)

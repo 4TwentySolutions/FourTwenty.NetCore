@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FourTwenty.Core.Extensions
 {
@@ -21,7 +19,7 @@ namespace FourTwenty.Core.Extensions
             return value.Length <= maxChars ? value : value.Substring(0, maxChars) + "...";
         }
 
-        public static string TruncateAtWord(this string input, int length)
+        public static string? TruncateAtWord(this string? input, int length)
         {
             if (input == null || input.Length < length)
                 return input;

@@ -9,26 +9,12 @@ namespace FourTwenty.Core.Services
 {
     public class FileService : IFileService
     {
-        #region fields
-
-#if NETCOREAPP3_1 || NET5_0_OR_GREATER 
         private readonly IWebHostEnvironment _environment;
-#elif NETSTANDARD2_1
-        private readonly IHostingEnvironment _environment;
-#endif
-        #endregion
 
-#if NETCOREAPP3_1 || NET5_0_OR_GREATER
         public FileService(IWebHostEnvironment environment)
         {
             _environment = environment;
         }
-#elif NETSTANDARD2_1
-        public FileService(IHostingEnvironment environment)
-        {
-            _environment = environment;
-        }
-#endif
 
 
 
@@ -39,13 +25,13 @@ namespace FourTwenty.Core.Services
         /// <param name="savePath"></param>
         /// <param name="fileName"></param>
         /// <returns>Filename of the saved file</returns>
-        public async Task<string> SaveFile(IFormFile file, string savePath, string fileName = null)
+        public async Task<string> SaveFile(IFormFile file, string savePath, string? fileName = null)
         {
             var uploadPath = Path.Combine(_environment.WebRootPath, savePath);
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);
             var filePath = Path.Combine(uploadPath, $"{fileName ?? Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}");
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            await using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }

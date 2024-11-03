@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using FourTwenty.Core.Interfaces;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace FourTwenty.Core.Specifications
 {
@@ -10,6 +10,11 @@ namespace FourTwenty.Core.Specifications
     {
         public static readonly ISpecification<T> All = new IdentitySpecification<T>();
 
+        public static ISpecification<T> operator |(BaseSpecification<T> left, BaseSpecification<T> right) => left.Or(right);
+        public static ISpecification<T> operator &(BaseSpecification<T> left, BaseSpecification<T> right) => left.And(right);
+        public static ISpecification<T> operator !(BaseSpecification<T> spec) => new NotSpecification<T>(spec);
+
+        public static implicit operator Expression<Func<T, bool>>(BaseSpecification<T> spec) => spec.ToExpression();
 
         protected BaseSpecification()
         {
@@ -149,7 +154,7 @@ namespace FourTwenty.Core.Specifications
 
             var invokedExpression = Expression.Invoke(rightExpression, leftExpression.Parameters);
 
-            return (Expression<Func<T, Boolean>>)Expression.Lambda(Expression.AndAlso(leftExpression.Body, invokedExpression), leftExpression.Parameters);
+            return (Expression<Func<T, bool>>)Expression.Lambda(Expression.AndAlso(leftExpression.Body, invokedExpression), leftExpression.Parameters);
         }
     }
 
@@ -172,7 +177,7 @@ namespace FourTwenty.Core.Specifications
 
             var invokedExpression = Expression.Invoke(rightExpression, leftExpression.Parameters);
 
-            return (Expression<Func<T, Boolean>>)Expression.Lambda(Expression.OrElse(leftExpression.Body, invokedExpression), leftExpression.Parameters);
+            return (Expression<Func<T, bool>>)Expression.Lambda(Expression.OrElse(leftExpression.Body, invokedExpression), leftExpression.Parameters);
         }
     }
 

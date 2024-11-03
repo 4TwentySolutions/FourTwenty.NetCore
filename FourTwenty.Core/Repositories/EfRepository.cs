@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using FourTwenty.Core.Interfaces;
 using FourTwenty.Core.Models;
 using FourTwenty.Core.Specifications;
 using Microsoft.EntityFrameworkCore;
@@ -20,14 +20,14 @@ namespace FourTwenty.Core.Repositories
         {
         }
 
-        public virtual T GetById(TKey id)
+        public virtual T? GetById(TKey id)
         {
             return Set.Find(id);
         }
 
-        public virtual async Task<T> GetByIdAsync(TKey id)
+        public virtual async Task<T?> GetByIdAsync(TKey id, CancellationToken ct = default)
         {
-            return await Set.FindAsync(id);
+            return await Set.FindAsync(new object[] { id! }, ct);
         }
 
         public virtual void Delete(TKey key)
@@ -39,12 +39,12 @@ namespace FourTwenty.Core.Repositories
             }
         }
 
-        public virtual async Task DeleteAsync(TKey key)
+        public virtual async Task DeleteAsync(TKey key, CancellationToken ct = default)
         {
-            var item = GetById(key);
+            var item = await GetByIdAsync(key, ct);
             if (item != null)
             {
-                await DeleteAsync(item);
+                await DeleteAsync(item, ct);
             }
         }
     }
@@ -60,48 +60,56 @@ namespace FourTwenty.Core.Repositories
             Set = dbContext.Set<T>();
         }
 
-        public virtual async Task<T> GetSingleBySpecAsync(ISpecification<T> spec)
+        public virtual async Task<T?> GetSingleBySpecAsync(ISpecification<T> spec, bool asNoTracking = true, CancellationToken ct = default)
         {
-            return await ApplySpecification(spec).AsNoTracking().FirstOrDefaultAsync();
+            if (asNoTracking)
+                return await ApplySpecification(spec).AsNoTracking().FirstOrDefaultAsync(cancellationToken: ct);
+            return await ApplySpecification(spec).FirstOrDefaultAsync(cancellationToken: ct);
         }
 
-        public virtual T GetSingleBySpec(ISpecification<T> spec)
+        public virtual T? GetSingleBySpec(ISpecification<T> spec, bool asNoTracking = true) => List(spec, asNoTracking).FirstOrDefault();
+
+        public virtual IQueryable<T> ListAll(bool asNoTracking = true)
         {
-            return List(spec).FirstOrDefault();
+            if (asNoTracking)
+                return Set.AsNoTracking();
+            return Set;
         }
 
-        public virtual IEnumerable<T> ListAll()
+        public virtual async Task<IReadOnlyList<T>> ListAllAsync(bool asNoTracking = true, CancellationToken ct = default)
         {
-            return Set.AsNoTracking().AsEnumerable();
+            if (asNoTracking)
+                return await Set.AsNoTracking().ToListAsync(cancellationToken: ct);
+
+            return await Set.ToListAsync(cancellationToken: ct);
         }
 
-        public virtual async Task<IReadOnlyList<T>> ListAllAsync()
+        public virtual IQueryable<T> List(ISpecification<T> spec, bool asNoTracking = true)
         {
-            return await Set.AsNoTracking().ToListAsync();
+            if (asNoTracking)
+                return ApplySpecification(spec).AsNoTracking();
+            return ApplySpecification(spec);
         }
 
-        public virtual IEnumerable<T> List(ISpecification<T> spec)
+        public virtual async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec, bool asNoTracking = true, CancellationToken ct = default)
         {
-            return ApplySpecification(spec).AsNoTracking().AsEnumerable();
+            if (asNoTracking)
+                return await ApplySpecification(spec).AsNoTracking().ToListAsync(cancellationToken: ct);
+            return await ApplySpecification(spec).ToListAsync(cancellationToken: ct);
         }
 
-        public virtual async Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
-        {
-            return await ApplySpecification(spec).AsNoTracking().ToListAsync();
-        }
-
-        public virtual int Count(ISpecification<T> spec = null)
+        public virtual int Count(ISpecification<T>? spec = null)
         {
             if (spec != null)
                 return ApplySpecification(spec).Count();
             return Set.Count();
         }
 
-        public virtual async Task<int> CountAsync(ISpecification<T> spec = null)
+        public virtual async Task<int> CountAsync(ISpecification<T>? spec = null, CancellationToken ct = default)
         {
             if (spec != null)
-                return await ApplySpecification(spec).CountAsync();
-            return await Set.CountAsync();
+                return await ApplySpecification(spec).CountAsync(cancellationToken: ct);
+            return await Set.CountAsync(cancellationToken: ct);
         }
 
         public virtual T Add(T entity)
@@ -112,10 +120,10 @@ namespace FourTwenty.Core.Repositories
             return entity;
         }
 
-        public virtual async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity, CancellationToken ct = default)
         {
             Set.Add(entity);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(ct);
 
             return entity;
         }
@@ -126,10 +134,10 @@ namespace FourTwenty.Core.Repositories
             DbContext.SaveChanges(); ;
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<T> entity)
+        public virtual async Task AddRangeAsync(IEnumerable<T> entity, CancellationToken ct = default)
         {
-            await Set.AddRangeAsync(entity);
-            await DbContext.SaveChangesAsync();
+            await Set.AddRangeAsync(entity, ct);
+            await DbContext.SaveChangesAsync(ct);
         }
 
         public virtual void Update(T entity)
@@ -138,10 +146,10 @@ namespace FourTwenty.Core.Repositories
             DbContext.SaveChanges();
         }
 
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity, CancellationToken ct = default)
         {
             DbContext.Entry(entity).State = EntityState.Modified;
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(ct);
         }
 
         public virtual void Delete(T entity)
@@ -150,10 +158,10 @@ namespace FourTwenty.Core.Repositories
             DbContext.SaveChanges();
         }
 
-        public virtual async Task DeleteAsync(T entity)
+        public virtual async Task DeleteAsync(T entity, CancellationToken ct = default)
         {
             Set.Remove(entity);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(ct);
         }
 
         public virtual void DeleteRange(IEnumerable<T> entity)
@@ -162,16 +170,14 @@ namespace FourTwenty.Core.Repositories
             DbContext.SaveChanges();
         }
 
-        public virtual async Task DeleteRangeAsync(IEnumerable<T> entity)
+        public virtual async Task DeleteRangeAsync(IEnumerable<T> entity, CancellationToken ct = default)
         {
             Set.RemoveRange(entity);
-            await DbContext.SaveChangesAsync();
+            await DbContext.SaveChangesAsync(ct);
         }
 
-        protected virtual IQueryable<T> ApplySpecification(ISpecification<T> spec)
-        {
-            return SpecificationEvaluator<T>.GetQuery(Set, spec);
-        }
+        protected virtual IQueryable<T> ApplySpecification(ISpecification<T> spec) => SpecificationEvaluator<T>.GetQuery(Set, spec);
+
 
 
     }

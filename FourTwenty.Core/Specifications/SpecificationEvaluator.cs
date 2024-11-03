@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using System.Linq.Dynamic.Core;
-using FourTwenty.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FourTwenty.Core.Specifications

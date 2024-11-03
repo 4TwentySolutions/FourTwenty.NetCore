@@ -17,7 +17,7 @@ namespace FourTwenty.Core.Seo
             Urls = new List<SitemapUrl>();
         }
 
-        public void AddUrl(string url, DateTime? modified = null, ChangeFrequency? changeFrequency = null, double? priority = null, SitemapLink[] links = null)
+        public void AddUrl(string url, DateTime? modified = null, ChangeFrequency? changeFrequency = null, double? priority = null, SitemapLink[]? links = null)
         {
             Urls.Add(new SitemapUrl()
             {

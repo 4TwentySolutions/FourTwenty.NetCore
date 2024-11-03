@@ -5,7 +5,7 @@ namespace FourTwenty.Core.Interfaces
 {
     public interface IFileService
     {
-        Task<string> SaveFile(IFormFile file, string savePath, string fileName = null);
+        Task<string> SaveFile(IFormFile file, string savePath, string? fileName = null);
         Task Delete(string path);
     }
 }

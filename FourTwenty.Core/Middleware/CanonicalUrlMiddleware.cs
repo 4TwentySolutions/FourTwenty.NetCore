@@ -10,11 +10,11 @@ namespace FourTwenty.Core.Middleware
     {
 
         private readonly int _localhostSslPort;
-        private readonly string[] _ignorePaths;
-        private readonly string[] _skipExtensions;
+        private readonly string[]? _ignorePaths;
+        private readonly string[]? _skipExtensions;
         private readonly RequestDelegate _next;
 
-        public CanonicalUrlMiddleware(RequestDelegate next, int localhostSslPort, string[] ignore = null, string[] skipExtensions = null)
+        public CanonicalUrlMiddleware(RequestDelegate next, int localhostSslPort, string[]? ignore = null, string[]? skipExtensions = null)
         {
             _next = next;
 
@@ -50,5 +50,5 @@ namespace FourTwenty.Core.Middleware
         }
     }
 
-    
+
 }

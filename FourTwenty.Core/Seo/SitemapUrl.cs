@@ -19,7 +19,7 @@ namespace FourTwenty.Core.Seo
         public DateTime? Modified { get; set; }
         public ChangeFrequency? ChangeFrequency { get; set; }
         public double? Priority { get; set; }
-        public SitemapLink[] Links { get; set; }
+        public SitemapLink[]? Links { get; set; }
     }
 
     public class SitemapLink

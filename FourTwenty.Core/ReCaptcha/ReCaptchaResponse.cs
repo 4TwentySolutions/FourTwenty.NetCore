@@ -2,19 +2,19 @@
 
 namespace FourTwenty.Core.ReCaptcha
 {
-    public class ReCaptchaResponse
+    public record ReCaptchaResponse
     {
         [JsonPropertyName("success")]
-        public bool Success { get; set; }
+        public bool Success { get; init; }
         [JsonPropertyName("challenge_ts")]
-        public string ChallengeTs { get; set; }
+        public string? ChallengeTs { get; init; }
         [JsonPropertyName("hostname")]
-        public string Hostname { get; set; }
+        public string? Hostname { get; init; }
         [JsonPropertyName("error-codes")]
-        public string[] ErrorCodes { get; set; }
+        public string[]? ErrorCodes { get; init; }
         [JsonPropertyName("score")]
-        public float Score { get; set; }
+        public float Score { get; init; }
         [JsonPropertyName("action")]
-        public string Action { get; set; }
+        public string? Action { get; init; }
     }
 }

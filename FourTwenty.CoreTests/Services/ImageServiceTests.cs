@@ -37,7 +37,7 @@ namespace FourTwenty.CoreTests.Services
         [TestMethod]
         public async Task ThumbnailTest()
         {
-            var randomSize = new Random().Next(5, 399);
+            var randomSize = (uint)new Random().Next(5, 399);
             var filePath = GetTempFileName();
             var resultFileName = await _imageService.CreateThumbnail(randomSize, randomSize, filePath, "_mythumbnail");
             var resultFilePath = Path.Combine(Path.GetTempPath(), resultFileName);
@@ -48,7 +48,7 @@ namespace FourTwenty.CoreTests.Services
             Assert.IsTrue(Path.GetFileNameWithoutExtension(resultFileName).EndsWith("_mythumbnail"));
             File.Delete(resultFilePath);
             File.Delete(filePath);
-        } 
+        }
         #endregion
 
         #region compression test
